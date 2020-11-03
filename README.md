@@ -8,10 +8,12 @@ query1: [(answer1, 0), (answer2, 1),...]
 
 # Baseline
 ## 思路一：
-不考虑回答直接的顺序关系，将其拆为query-answer 对，然后进行判断。
+不考虑回答之间的顺序关系，将其拆为query-answer 对，然后进行判断。
 
 ![](./img/pair.png)
+
 代码实现：[match_pair](https://github.com/xv44586/ccf_2020_qa_match/ccf_2020_qa_match_pair.py)
+
 单模型提交f1:0.752
 
 ## 思路二：
@@ -20,4 +22,5 @@ query1: [(answer1, 0), (answer2, 1),...]
 ![](./img/point.png)
 
 代码实现：[match_point](https://github.com/xv44586/ccf_2020_qa_match/ccf_2020_qa_match_point.py)
+
 单模型提交f1: 0.75
