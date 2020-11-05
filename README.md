@@ -6,6 +6,9 @@
 query1: [(answer1, 0), (answer2, 1),...]
 任务是对每个回答进行分类，判断是不是针对问题的回答。
 
+# pretrain model weights
+预训练模型使用的是华为开源的[nezha-base-wwm](https://github.com/huawei-noah/Pretrained-Language-Model/tree/master/NEZHA-TensorFlow)
+
 # Baseline
 ## 思路一：
 不考虑回答之间的顺序关系，将其拆为query-answer 对，然后进行判断。
