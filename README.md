@@ -1,5 +1,6 @@
 # 比赛
-贝壳找房-房产行业聊天问答匹配， 比赛地址[https://www.datafountain.cn/competitions/474/datasets](https://www.datafountain.cn/competitions/474/datasets)。
+贝壳找房-房产行业聊天问答匹配， 比赛地址[https://www.datafountain.cn/competitions/474/datasets](https://www.datafountain.cn/competitions/474/datasets)
+
 总结博客：[ccf问答匹配](https://xv44586.github.io/2020/11/08/ccf-qa/)
 
 # 简单说明
