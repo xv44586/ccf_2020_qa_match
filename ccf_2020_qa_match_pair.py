@@ -99,15 +99,29 @@ test_generator = data_generator(test_data, batch_size)
 bert = build_transformer_model(
     config_path=config_path,
     checkpoint_path=checkpoint_path,
-    with_pool=True,
     model='nezha',
 )
 output = bert.output
 
+output = Dropout(0.5)(output)
+
+att = AttentionPooling1D(name='attention_pooling_1')(output)
+
+output = ConcatSeq2Vec()([output, att])
+output = DGCNN(dilation_rate=1, dropout_rate=0.1)(output)
+output = DGCNN(dilation_rate=2, dropout_rate=0.1)(output)
+output = DGCNN(dilation_rate=5, dropout_rate=0.1)(output)
+output = Lambda(lambda x: x[:, 0])(output)
 output = Dense(1, activation='sigmoid')(output)
 
 model = keras.models.Model(bert.input, output)
 model.summary()
+
+model.compile(
+    loss=K.binary_crossentropy,
+    optimizer=Adam(2e-5),
+    metrics=['accuracy'],
+)
 
 model.compile(
     loss=K.binary_crossentropy,
@@ -137,6 +151,7 @@ def evaluate(data):
 class Evaluator(keras.callbacks.Callback):
     """评估与保存
     """
+
     def __init__(self):
         self.best_val_f1 = 0.
 

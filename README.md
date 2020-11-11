@@ -1,10 +1,15 @@
 # 比赛
 贝壳找房-房产行业聊天问答匹配， 比赛地址[https://www.datafountain.cn/competitions/474/datasets](https://www.datafountain.cn/competitions/474/datasets)
 
+总结博客：[ccf问答匹配](https://xv44586.github.io/2020/11/08/ccf-qa/)
+
 # 简单说明
 样本为一个问题多个回答，其中回答有的是针对问题的回答（1），也有不是的（0），其中回答是按顺序排列的。即：
 query1: [(answer1, 0), (answer2, 1),...]
 任务是对每个回答进行分类，判断是不是针对问题的回答。
+
+# pretrain model weights
+预训练模型使用的是华为开源的[nezha-base-wwm](https://github.com/huawei-noah/Pretrained-Language-Model/tree/master/NEZHA-TensorFlow)
 
 # Baseline
 ## 思路一：
