@@ -41,3 +41,11 @@ Pattern-Exploiting Training(PET)，即增加一个pattern，将任务转换为ML
 对应代码实现：[pet classification](https://github.com/xv44586/ccf_2020_qa_match/ccf_2020_qa_match_pet.py)
 
 单模型提交f1: 0.76
+
+# tips
+贴几篇感觉有启发的关于文本分类的论文
+
+* [Universal Language Model Fine-tuning for Text Classification](http://arxiv.org/abs/1801.06146)
+* [How to Fine-Tune BERT for Text Classification?](http://arxiv.org/abs/1905.05583)
+* [Don't Stop Pretraining: Adapt Language Models to Domains and Tasks](http://arxiv.org/abs/2004.10964)
+* [Enriching BERT with Knowledge Graph Embeddings for Document Classification](http://arxiv.org/abs/1909.08402)
