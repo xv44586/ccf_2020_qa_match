@@ -6,6 +6,9 @@
 """
 拆成query-pair 对，然后分类
 线上f1:0.752
+
+tips:
+  切换模型时，修改对应config_path/checkpoint_path/dict_path路径以及build_transformer_model 内的参数
 """
 import os
 from tqdm import tqdm
@@ -99,7 +102,9 @@ test_generator = data_generator(test_data, batch_size)
 bert = build_transformer_model(
     config_path=config_path,
     checkpoint_path=checkpoint_path,
-    model='nezha',
+    # model='bert',  # 加载bert/Roberta/ernie
+    # model='electra', # 加载electra
+    model='nezha',  # 加载NEZHA
 )
 output = bert.output
 

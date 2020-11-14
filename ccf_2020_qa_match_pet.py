@@ -6,6 +6,9 @@
 """
 Pattern-Exploiting Training(PET): 增加pattern，将任务转换为MLM任务。
 线上f1: 0.761
+
+tips:
+  切换模型时，修改对应config_path/checkpoint_path/dict_path路径以及build_transformer_model 内的参数
 """
 
 import os
@@ -176,6 +179,7 @@ class CrossEntropy(Loss):
 model = build_transformer_model(config_path=config_path,
                                 checkpoint_path=checkpoint_path,
                                 with_mlm=True,
+                                # model='bert',  # 加载bert/Roberta/ernie
                                 model='nezha'
                                 )
 

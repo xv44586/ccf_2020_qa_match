@@ -8,6 +8,9 @@
 主要思路：将reply顺序拼接到query后面，利用每个reply的[SEP]token做二分类
 best val f1: 0.794
 A 榜: 0.756
+
+tips:
+  切换模型时，修改对应config_path/checkpoint_path/dict_path路径以及build_transformer_model 内的参数
 """
 import os
 from tqdm import tqdm
@@ -152,6 +155,8 @@ class ConcatSeq2Vec(Layer):
 bert = build_transformer_model(
     config_path=config_path,
     checkpoint_path=checkpoint_path,
+    # model='bert',  # 加载bert/Roberta/ernie
+    # model='electra', # 加载electra
     model='nezha',
 )
 
