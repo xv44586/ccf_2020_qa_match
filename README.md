@@ -45,7 +45,15 @@ Pattern-Exploiting Training(PET)，即增加一个pattern，将任务转换为ML
 
 对应代码实现：[pet classification](https://github.com/xv44586/ccf_2020_qa_match/ccf_2020_qa_match_pet.py)
 
-单模型提交f1: 0.76
+单模型提交f1: 0.76~
+
+# 思路四
+由于bert 不同的transformer 层提取到的语义粒度不同，而不同粒度的信息对分类来说起到的作用也不同，所以可以concat所以粒度的语义信息，拼接后作为特征进行分类。
+
+对应于本次样本，示意图如下：
+![](./img/concat.png)
+对应代码实现：[pet classification](https://github.com/xv44586/ccf_2020_qa_match/ccf_2020_qa_match_concat.py)
+单模型提交f1: 0.76~
 
 # tips
 贴几篇感觉有启发的关于文本分类的论文
