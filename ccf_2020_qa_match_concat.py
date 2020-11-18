@@ -104,6 +104,7 @@ bert = build_transformer_model(
     # model='bert',  # 加载bert/Roberta/ernie
     # model='electra', # 加载electra
     model='nezha',  # 加载NEZHA
+    return_keras_model=False,
 )
 inputs = bert.inputs
 
