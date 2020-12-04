@@ -31,7 +31,7 @@ checkpoint_path = '/home/mingming.xu/pretrain/NLP/nezha_base_wwm/model.ckpt'
 dict_path = '/home/mingming.xu/pretrain/NLP/nezha_base_wwm/vocab.txt'
 model_saved_path = './nezha_post_training/wwm-model-add-dict-no-mask-end-sop.ckpt'
 
-new_dict_path = './new_dict.txt'
+new_dict_path = './data/new_dict.txt'
 maxlen = 256
 batch_size = 16
 epochs = 100
