@@ -1,11 +1,12 @@
 # Update
 基于当前repo 优化后，A/B 榜皆是Top1，~~代码整理中，后续会陆续放上来！~~
+
 #优化思路
 ## Post training
 ### mlm
 提升mlm任务中的mask策略，提升难度，提高下游性能：挖掘新词，加入词典，whole word mask + dynamic
 * 挖掘新词
-```shell
+```python
 python new_words_mining.py 
 ```
 ### nsp
@@ -14,7 +15,7 @@ python new_words_mining.py
 post training的样本格式与下游一致，也能带来提升（区别RoBERTa 中的结论）
 
 完整post training代码为两份：query-answer pair 与 query-answerA-list两种方式：
-```shell
+```python
 python popint-post-training-wwm-sop.py
 python pair-post-training-wwm-sop.py
 ```
@@ -28,7 +29,7 @@ PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不
 * transformer output 层融合
 ![top-embedding](./img/top-embedding.png)
 融入的知识使用的gensim 训练的word2vec(dims=100)，不过两种方式多次实验后都没带来提升：
-```shell
+```python
 python pair-external-embedding.py
 ```
 如何切换融入的方式，请查看代码后自行修改
@@ -46,11 +47,11 @@ python pair-external-embedding.py
 ![监督对比学习模型](./img/sc.png)
 
 执行自监督对比代码：
-```shell
+```python
 python pair-data-augment-contrstive-learning.py 
 ```
 执行监督对比学习代码：
-```shell
+```python
 python pair-supervised-contrastive-learning.py
 ```
 
@@ -60,6 +61,11 @@ python pair-supervised-contrastive-learning.py
 python pair-self-kd.py
 ```
 
+# 对抗训练
+使用FGM方法对EMbedding进行扰动：
+```python
+python pair-adversarial-train.py
+```
 ## 数据增强
 数据增强主要尝试了两种方式：EDA与伪标签。
 * EDA
