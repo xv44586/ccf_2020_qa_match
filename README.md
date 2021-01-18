@@ -1,5 +1,80 @@
 # Update
-基于当前repo 优化后，A/B 榜皆是Top1，代码整理中，后续会陆续放上来！
+基于当前repo 优化后，A/B 榜皆是Top1，~~代码整理中，后续会陆续放上来！~~
+#优化思路
+## Post training
+### mlm
+提升mlm任务中的mask策略，提升难度，提高下游性能：挖掘新词，加入词典，whole word mask + dynamic
+* 挖掘新词
+```shell
+python new_words_mining.py 
+```
+### nsp
+句子级别的任务是有用的，不过替换为SOP/AOP: query-answer pair时互换位置(sop)，query-answer-list时，只打乱answer-list的顺序（aop)
+### model-adaptive
+post training的样本格式与下游一致，也能带来提升（区别RoBERTa 中的结论）
+
+完整post training代码为两份：query-answer pair 与 query-answerA-list两种方式：
+```shell
+python popint-post-training-wwm-sop.py
+python pair-post-training-wwm-sop.py
+```
+
+PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不会带来提升
+![post training result](./img/post-training.png)
+## 融入知识
+融入知识主要两种方式：bert 的Embedding层融入与transformer output层融入:
+* embedding层融合
+![external-embedding-bottom](./img/bottom-embedding.png)
+* transformer output 层融合
+![top-embedding](./img/top-embedding.png)
+融入的知识使用的gensim 训练的word2vec(dims=100)，不过两种方式多次实验后都没带来提升：
+```shell
+python pair-external-embedding.py
+```
+如何切换融入的方式，请查看代码后自行修改
+
+## 对比学习
+引入对比学习尝试提高模型性能，对比学习主要有两种方式：自监督对比学习与监督对比学习：
+* 自监督对比学习
+通过互换QA位置，并随机mask 10%的token来构建一对view，view之间互为正例：
+![自监督对比学习loss](./img/ssc-loss.png)
+![自监督对比学习模型](./img/ssc.png)
+
+* 监督对比学习
+将相同label的样本视为互为正例：
+![监督对比学习loss](./img/sc-loss.png)
+![监督对比学习模型](./img/sc.png)
+
+执行自监督对比代码：
+```shell
+python pair-data-augment-contrstive-learning.py 
+```
+执行监督对比学习代码：
+```shell
+python pair-supervised-contrastive-learning.py
+```
+
+## 自蒸馏
+自蒸馏即Teacher 与 Student 为同一个模型，Teacher训练一次后，在train data上打上soften labels，然后迁移至Student 模型。
+```shell
+python pair-self-kd.py
+```
+
+## 数据增强
+数据增强主要尝试了两种方式：EDA与伪标签。
+* EDA
+随机删除/随机替换/随机插入/随机重复，操作比例10%，每个样本生成4个新样本
+词向量质量低，所以使用从当前句子随机选取一个词作为同义词进行操作
+
+* 伪标签
+用已训练的模型对test data打上标签加入训练集
+
+TIPS：
+数据增强时用已训练模型进行过滤，将低置信度（<0.7)的样本过滤掉，避免引入错误标签样本；此外，伪标签时，要结合数据比例，过多的测试数据提前进入训练集，最终的结果只会与“伪标签”一致，反而无法带来提升。
+
+两种方式也没有带来提升
+
+
 
 # 比赛
 贝壳找房-房产行业聊天问答匹配， 比赛地址[https://www.datafountain.cn/competitions/474/datasets](https://www.datafountain.cn/competitions/474/datasets)
