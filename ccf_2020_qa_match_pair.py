@@ -122,11 +122,6 @@ output = Dense(1, activation='sigmoid')(output)
 model = keras.models.Model(bert.input, output)
 model.summary()
 
-model.compile(
-    loss=K.binary_crossentropy,
-    optimizer=Adam(2e-5),
-    metrics=['accuracy'],
-)
 
 model.compile(
     loss=K.binary_crossentropy,

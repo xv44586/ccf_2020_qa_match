@@ -1,7 +1,7 @@
 # Update
 基于当前repo 优化后，A/B 榜皆是Top1，~~代码整理中，后续会陆续放上来！~~
 
-#优化思路
+# 优化思路
 ## Post training
 ### mlm
 提升mlm任务中的mask策略，提升难度，提高下游性能：挖掘新词，加入词典，whole word mask + dynamic
@@ -20,7 +20,7 @@ python popint-post-training-wwm-sop.py
 python pair-post-training-wwm-sop.py
 ```
 
-PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不会带来提升
+PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不会带来提升  
 ![post training result](./img/post-training.png)
 ## 融入知识
 融入知识主要两种方式：bert 的Embedding层融入与transformer output层融入:
@@ -61,7 +61,7 @@ python pair-supervised-contrastive-learning.py
 python pair-self-kd.py
 ```
 
-# 对抗训练
+## 对抗训练
 使用FGM方法对EMbedding进行扰动：
 ```python
 python pair-adversarial-train.py
@@ -75,12 +75,12 @@ python pair-adversarial-train.py
 * 伪标签
 用已训练的模型对test data打上标签加入训练集
 
-TIPS：
+Tips：
 数据增强时用已训练模型进行过滤，将低置信度（<0.7)的样本过滤掉，避免引入错误标签样本；此外，伪标签时，要结合数据比例，过多的测试数据提前进入训练集，最终的结果只会与“伪标签”一致，反而无法带来提升。
 
 两种方式也没有带来提升
 
-
+---------------------2020.01.18------------------------------------
 
 # 比赛
 贝壳找房-房产行业聊天问答匹配， 比赛地址[https://www.datafountain.cn/competitions/474/datasets](https://www.datafountain.cn/competitions/474/datasets)
