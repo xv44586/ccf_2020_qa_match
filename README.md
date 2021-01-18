@@ -24,9 +24,9 @@ PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不
 ![post training result](./img/post-training.png)
 ## 融入知识
 融入知识主要两种方式：bert 的Embedding层融入与transformer output层融入:
-* embedding层融合
+* embedding层融合  
 ![external-embedding-bottom](./img/bottom-embedding.png)
-* transformer output 层融合
+* transformer output 层融合  
 ![top-embedding](./img/top-embedding.png)
 融入的知识使用的gensim 训练的word2vec(dims=100)，不过两种方式多次实验后都没带来提升：
 ```python
@@ -38,12 +38,16 @@ python pair-external-embedding.py
 引入对比学习尝试提高模型性能，对比学习主要有两种方式：自监督对比学习与监督对比学习：
 * 自监督对比学习
 通过互换QA位置，并随机mask 10%的token来构建一对view，view之间互为正例：
+* loss  
 ![自监督对比学习loss](./img/ssc-loss.png)
+* model  
 ![自监督对比学习模型](./img/ssc.png)
 
 * 监督对比学习
 将相同label的样本视为互为正例：
+* loss  
 ![监督对比学习loss](./img/sc-loss.png)
+* model  
 ![监督对比学习模型](./img/sc.png)
 
 执行自监督对比代码：
@@ -78,9 +82,11 @@ python pair-adversarial-train.py
 Tips：
 数据增强时用已训练模型进行过滤，将低置信度（<0.7)的样本过滤掉，避免引入错误标签样本；此外，伪标签时，要结合数据比例，过多的测试数据提前进入训练集，最终的结果只会与“伪标签”一致，反而无法带来提升。
 
-两种方式也没有带来提升
+## shuffle
+在query-answer-list 样本格式下，解码时对answer-list进行全排列，然后投票。不过此次比赛的数据顺序很重要，乱序后结果较差，没带来提升
 
----------------------2020.01.18------------------------------------
+
+**-----------------------------------2020.01.18------------------------------------------------------------------**
 
 # 比赛
 贝壳找房-房产行业聊天问答匹配， 比赛地址[https://www.datafountain.cn/competitions/474/datasets](https://www.datafountain.cn/competitions/474/datasets)
