@@ -27,7 +27,8 @@ PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不
 * embedding层融合  
 ![external-embedding-bottom](./img/bottom-embedding.png)
 * transformer output 层融合  
-![top-embedding](./img/top-embedding.png)
+![top-embedding](./img/top-embedding.png)  
+
 融入的知识使用的gensim 训练的word2vec(dims=100)，不过两种方式多次实验后都没带来提升：
 ```python
 python pair-external-embedding.py
