@@ -6,22 +6,24 @@
 ### mlm
 提升mlm任务中的mask策略，提升难度，提高下游性能：挖掘新词，加入词典，whole word mask + dynamic
 * 挖掘新词
-```python
+```bash
 python new_words_mining.py 
 ```
 ### nsp
 句子级别的任务是有用的，不过替换为SOP/AOP: query-answer pair时互换位置(sop)，query-answer-list时，只打乱answer-list的顺序（aop)
+
 ### model-adaptive
 post training的样本格式与下游一致，也能带来提升（区别RoBERTa 中的结论）
 
 完整post training代码为两份：query-answer pair 与 query-answerA-list两种方式：
-```python
+```bash
 python popint-post-training-wwm-sop.py
 python pair-post-training-wwm-sop.py
 ```
 
 PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不会带来提升  
 ![post training result](./img/post-training.png)
+
 ## 融入知识
 融入知识主要两种方式：bert 的Embedding层融入与transformer output层融入:
 * embedding层融合  
@@ -30,7 +32,7 @@ PS: post training 后，bert 后接复杂分类层（CNN/RNN/DGCNN/...)基本不
 ![top-embedding](./img/top-embedding.png)  
 
 融入的知识使用的gensim 训练的word2vec(dims=100)，不过两种方式多次实验后都没带来提升：
-```python
+```bash
 python pair-external-embedding.py
 ```
 如何切换融入的方式，请查看代码后自行修改
@@ -52,25 +54,26 @@ python pair-external-embedding.py
 ![监督对比学习模型](./img/sc.png)
 
 执行自监督对比代码：
-```python
+```bash
 python pair-data-augment-contrstive-learning.py 
 ```
 执行监督对比学习代码：
-```python
+```bash
 python pair-supervised-contrastive-learning.py
 ```
 
 ## 自蒸馏
 自蒸馏即Teacher 与 Student 为同一个模型，Teacher训练一次后，在train data上打上soften labels，然后迁移至Student 模型。
-```shell
+```bash
 python pair-self-kd.py
 ```
 
 ## 对抗训练
 使用FGM方法对EMbedding进行扰动：
-```python
+```bash
 python pair-adversarial-train.py
 ```
+
 ## 数据增强
 数据增强主要尝试了两种方式：EDA与伪标签。
 * EDA
@@ -89,6 +92,7 @@ Tips：
 
 # 总结
 ![](./img/summary.png)
+
 **-----------------------------------2020.01.18------------------------------------------------------------------**
 
 # 比赛
