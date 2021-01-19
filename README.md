@@ -39,14 +39,14 @@ python pair-external-embedding.py
 
 ## 对比学习
 引入对比学习尝试提高模型性能，对比学习主要有两种方式：自监督对比学习与监督对比学习：
-* 自监督对比学习
+* 自监督对比学习  
 通过互换QA位置，并随机mask 10%的token来构建一对view，view之间互为正例：
 * loss  
 ![自监督对比学习loss](./img/ssc-loss.png)
 * model  
 ![自监督对比学习模型](./img/ssc.png)
 
-* 监督对比学习
+* 监督对比学习  
 将相同label的样本视为互为正例：
 * loss  
 ![监督对比学习loss](./img/sc-loss.png)
