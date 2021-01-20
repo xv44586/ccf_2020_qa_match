@@ -4,7 +4,7 @@
 # 优化思路
 ## Post training
 ### mlm
-提升mlm任务中的mask策略，提升难度，提高下游性能：挖掘新词，加入词典，whole word mask + dynamic
+提升mlm任务中的mask策略，提升难度，提高下游性能：挖掘新词，加入词典，whole word mask + dynamic mask
 * 挖掘新词
 ```bash
 python new_words_mining.py 
