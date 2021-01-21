@@ -1,5 +1,7 @@
 # Update
-基于当前repo 优化后，A/B 榜皆是Top1，~~代码整理中，后续会陆续放上来！~~
+基于当前repo 优化后，A/B 榜皆是Top1，~~代码整理中，后续会陆续放上来！~~  
+
+<strong>总结博客：</strong>[ccf问答匹配比赛（下）：如何只用“bert”夺冠](https://xv44586.github.io/2021/01/20/ccf-qa-2/)
 
 # 优化思路
 ## Post training
